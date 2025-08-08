@@ -1,194 +1,252 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sky Architect - Site Officiel</title>
-    <style>
-        /* --- Styles Généraux --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            margin: 0;
-            background-color: #f0f8ff; /* Un bleu ciel très clair */
-            color: #333;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky Architecte - Jeu de Construction Céleste</title>
+  <style>
+    /* --- RESET & BASE --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* --- En-tête et Navigation --- */
-        header {
-            background: linear-gradient(135deg, #4a90e2, #50e3c2);
-            color: #ffffff;
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 5px solid #3a7ac0;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #87ceeb, #e0f7ff);
+      color: #333;
+      line-height: 1.6;
+    }
 
-        nav {
-            margin-top: 1rem;
-        }
+    /* --- HEADER --- */
+    header {
+      background: #1e90ff;
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+      position: relative;
+    }
 
-        nav a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
+    header h1 {
+      font-size: 2.8rem;
+    }
 
-        nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
 
-        /* --- Contenu Principal --- */
-        main {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
+    /* --- NAV --- */
+    nav {
+      background-color: #104e8b;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
 
-        section {
-            background-color: #ffffff;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
 
-        section:hover {
-            transform: translateY(-5px);
-        }
+    nav a:hover {
+      color: #ffd700;
+    }
 
-        h2 {
-            color: #3a7ac0;
-            border-bottom: 2px solid #50e3c2;
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-        }
+    /* --- SECTION --- */
+    section {
+      padding: 4rem 10%;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease;
+    }
 
-        h3 {
-            color: #4a90e2;
-        }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        /* --- Éléments Spécifiques --- */
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+    h2 {
+      color: #1e90ff;
+      border-bottom: 2px solid #1e90ff;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+    }
 
-        li {
-            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2350e3c2"><path d="M10 17l5-5-5-5v10z"/></svg>') no-repeat left center;
-            padding-left: 25px;
-            margin-bottom: 0.5rem;
-        }
+    .highlight {
+      background: #f0f8ff;
+      padding: 1rem;
+      border-left: 5px solid #1e90ff;
+      margin: 1.5rem 0;
+      border-radius: 5px;
+    }
 
-        strong {
-            color: #333;
-        }
+    ul {
+      margin-top: 1rem;
+      padding-left: 1.2rem;
+    }
 
-        code {
-            display: block;
-            background-color: #eef1f5;
-            padding: 1rem;
-            border-radius: 5px;
-            border-left: 4px solid #4a90e2;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1em;
-            white-space: pre-wrap; /* Permet le retour à la ligne */
-            word-wrap: break-word; /* S'assure que les longs mots ne débordent pas */
-        }
+    ul li {
+      margin-bottom: 0.8rem;
+    }
 
-        /* --- Pied de page --- */
-        footer {
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
+    /* --- FOOTER --- */
+    footer {
+      background-color: #104e8b;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 3rem;
+    }
+
+    /* --- BACK TO TOP BUTTON --- */
+    #topBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #1e90ff;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 999;
+      transition: background 0.3s ease;
+    }
+
+    #topBtn:hover {
+      background: #104e8b;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      section {
+        padding: 2rem 5%;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Sky Architect</h1>
-        <nav>
-            <a href="#about">À Propos</a>
-            <a href="#gameplay">Gameplay</a>
-            <a href="#economy">Économie</a>
-            <a href="#multiplayer">Multijoueur</a>
-        </nav>
-    </header>
+  <header>
+    <h1>Sky Architecte</h1>
+    <p>Devenez le maître du ciel en construisant votre propre royaume suspendu</p>
+  </header>
 
-    <main>
-        <section id="about">
-            <h2>Bienvenue dans l'univers de Sky Architect</h2>
-            <p>Un jeu de construction et de gestion où votre créativité est la seule limite. Imaginez une île flottant dans le ciel, un bloc immense, incassable et infini qui n'attend que vous pour devenir un chef-d'œuvre. Votre mission ? Devenir un véritable architecte céleste en sculptant, en gérant et en faisant prospérer votre propre royaume au-dessus des nuages.</p>
-        </section>
+  <nav>
+    <a href="#gameplay">Gameplay</a>
+    <a href="#economy">Économie</a>
+    <a href="#features">Fonctionnalités</a>
+    <a href="#multiplayer">Multijoueur</a>
+  </nav>
 
-        <section id="gameplay">
-            <h2>Le Cœur du Gameplay : Construction et Création</h2>
-            <p>Au début de votre aventure, vous êtes le fier propriétaire d'un simple bloc volant. C'est à vous de l'étendre et de le modeler.</p>
-            <ul>
-                <li><strong>Expansion de l'Île :</strong> Utilisez des blocs de Terre, le matériau de base du jeu, pour agrandir votre territoire. Mais attention, la surface n'est pas illimitée ! Pour augmenter la taille maximale de votre zone de construction, vous devrez dépenser de l'Argent Céleste, la monnaie unique de ce monde.</li>
-                <li><strong>Créativité sans Limite :</strong> Le jeu vous offre une vaste collection de blocs, des plus communs aux plus rares, pour construire tout ce que votre imagination peut concevoir : des châteaux éthérés, des jardins suspendus, ou des villes futuristes.</li>
-            </ul>
-        </section>
+  <section id="gameplay">
+    <h2>Le Cœur du Gameplay</h2>
+    <p>Commencez avec un simple bloc flottant dans le ciel. À vous de construire, façonner, et gérer un empire céleste sans limite !</p>
+    <div class="highlight">
+      <strong>Expansion de l'Île :</strong> Utilisez des blocs de Terre pour agrandir votre territoire. Dépensez de l'Argent Céleste pour étendre la zone maximale.
+    </div>
+    <div class="highlight">
+      <strong>Créativité sans Limite :</strong> Utilisez une large gamme de blocs pour construire des châteaux éthérés, des jardins suspendus ou des villes futuristes.
+    </div>
+  </section>
 
-        <section id="economy">
-            <h2>L'Économie Céleste : L'Argent Céleste</h2>
-            <p>L'économie de Sky Architecte est conçue pour récompenser votre sens du design. Plus vos créations sont belles et complexes, plus vous prospérez. L'Argent Céleste est la clé de voûte de cette économie.</p>
-            <h3>Comment gagne-t-on de l'Argent Céleste ?</h3>
-            <p>Chaque fois que vous posez un bloc, vous gagnez de l'Argent Céleste selon une formule qui valorise la réflexion et l'esthétique :</p>
-            <code>Argent Céleste Gagné = Gain_Base_Bloc × Multiplicateur_Densité × Multiplicateur_Diversité × Multiplicateur_Esthétique_Global</code>
-            <ul>
-                 <li><strong>Gain de Base du Bloc :</strong> Chaque type de bloc a une valeur intrinsèque, légèrement supérieure à son coût d'achat. Par exemple, la Terre rapporte 1.2 Céleste, le Bois Raffiné 12 et la Gemme Lumineuse 240.</li>
-                 <li><strong>Multiplicateur de Densité :</strong> Ce bonus récompense les blocs bien intégrés, basé sur le nombre de faces touchant d'autres blocs.</li>
-                 <li><strong>Multiplicateur de Diversité :</strong> Ce bonus encourage la variété dans vos constructions en se basant sur le nombre de types de blocs uniques adjacents.</li>
-                 <li><strong>Multiplicateur Esthétique Global :</strong> C'est le plus grand bonus du jeu ! Cette valeur est attribuée par les administrateurs et reflète la beauté et la complexité exceptionnelles de votre île.</li>
-            </ul>
-            <p>L'Argent Céleste vous sert ensuite à tout : acheter de nouveaux blocs et Pets, créer des Blueprints, ou agrandir votre île.</p>
-        </section>
+  <section id="economy">
+    <h2>L'Économie Céleste</h2>
+    <p>Chaque bloc posé vous rapporte de l'Argent Céleste, grâce à un système de calcul ingénieux basé sur esthétique, densité et diversité.</p>
+    <ul>
+      <li><strong>Gain de Base :</strong> La Terre rapporte 1.2 Céleste, le Bois Raffiné 12, la Gemme Lumineuse 240.</li>
+      <li><strong>Multiplicateur de Densité :</strong> Basé sur les blocs adjacents (max : 1.0).</li>
+      <li><strong>Multiplicateur de Diversité :</strong> Encourage la variété autour de chaque bloc posé.</li>
+      <li><strong>Multiplicateur Esthétique Global :</strong> Attribué par les admins aux plus belles îles. C’est le bonus ultime !</li>
+    </ul>
+  </section>
 
-        <section id="features">
-            <h2>Des Marchands, des Compagnons et des Blueprints</h2>
-            <h3>Marchands et Compagnons</h3>
-            <p>Votre monde ne serait pas complet sans un peu d'animation !</p>
-            <ul>
-                <li><strong>Marchands Dynamiques :</strong> Divers marchands apparaissent régulièrement, proposant des blocs et des Pets. Leurs stocks de blocs rares se réinitialisent toutes les cinq minutes.</li>
-                <li><strong>Vos Pets :</strong> Adoptez d'adorables compagnons ! Prenez-en soin pour les voir grandir et peut-être même développer des compétences uniques, comme les "Pets Piocheurs" qui vous rapportent des ressources passivement.</li>
-            </ul>
+  <section id="features">
+    <h2>Marchands, Pets & Blueprints</h2>
+    <div class="highlight">
+      <strong>Marchands :</strong> Proposent des blocs rares et des Pets. Leur stock change toutes les 5 minutes !
+    </div>
+    <div class="highlight">
+      <strong>Vos Pets :</strong> Adoptez des compagnons mignons qui peuvent vous aider et rapporter des bonus passifs.
+    </div>
+    <div class="highlight">
+      <strong>Blueprints :</strong> Créez ou achetez des plans pour construire rapidement des structures complexes.
+    </div>
+  </section>
 
-            <h3>Les Blueprints : Construire en toute simplicité</h3>
-            <p>Les Blueprints sont des plans qui révolutionnent votre façon de construire.</p>
-             <ul>
-                <li><strong>Accélérez votre Construction :</strong> Ces plans vous permettent de poser l'équivalent de plusieurs blocs à la fois, rendant la construction de structures complexes beaucoup plus rapide.</li>
-                <li><strong>Création et Achat :</strong> Vous pouvez soit créer un plan à partir d'une structure existante, soit en acheter auprès des marchands.</li>
-            </ul>
-        </section>
-        
-        <section id="multiplayer">
-            <h2>L'Expérience Multijoueur</h2>
-            <p>Sky Architect peut se jouer seul ou entre amis.</p>
-            <ul>
-                <li><strong>Créer un Monde :</strong> Lancez une partie, et un code unique vous sera donné. Vous pourrez le partager avec vos amis.</li>
-                <li><strong>Rejoindre un Monde :</strong> Utilisez le code d'un ami pour rejoindre son île et construire ensemble dans le même ciel.</li>
-            </ul>
-        </section>
-    </main>
+  <section id="multiplayer">
+    <h2>Mode Multijoueur</h2>
+    <p>Construisez seul ou entre amis dans le même ciel !</p>
+    <ul>
+      <li><strong>Créer un monde :</strong> Obtenez un code unique à partager.</li>
+      <li><strong>Rejoindre un monde :</strong> Entrez le code d'un ami pour collaborer à la construction.</li>
+    </ul>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Sky Architect - Tous droits réservés.</p>
-    </footer>
+  <footer>
+    &copy; 2025 Sky Architecte. Tous droits réservés.
+  </footer>
+
+  <button id="topBtn">↑ Haut</button>
+
+  <script>
+    // --- Apparition animée des sections ---
+    const sections = document.querySelectorAll("section");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // --- Bouton "Retour en haut" ---
+    const topBtn = document.getElementById("topBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 500) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    });
+
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 
 </body>
 </html>
