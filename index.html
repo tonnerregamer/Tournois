@@ -1,658 +1,194 @@
-            width: 100%;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.8s ease-out 0.8s;
-            transform: translateY(20px);
-        }
-        .container.show {
-            opacity: 1;
-            transform: translateY(0);
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Architect - Site Officiel</title>
+    <style>
+        /* --- Styles Généraux --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            background-color: #f0f8ff; /* Un bleu ciel très clair */
+            color: #333;
         }
 
-        /* Animations existantes */
-        .animated-section {
-            animation: fadeIn 0.8s ease-out forwards;
+        /* --- En-tête et Navigation --- */
+        header {
+            background: linear-gradient(135deg, #4a90e2, #50e3c2);
+            color: #ffffff;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid #3a7ac0;
         }
-        .match-card {
-            background-color: #f8fafc;
-            border-radius: 1.25rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            border: 1px solid #e2e8f0;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: popInFromBottom 0.5s ease-out;
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        @keyframes popInFromBottom {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        nav {
+            margin-top: 1rem;
         }
-        .match-card:hover:not(.completed) {
+
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Contenu Principal --- */
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            background-color: #ffffff;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
         }
-        .match-card.completed {
-            background-color: #dcfce7; /* Vert doux pour les matchs terminés */
-            border-color: #bbf7d0;
-            animation: none;
-            opacity: 0.8;
+
+        h2 {
+            color: #3a7ac0;
+            border-bottom: 2px solid #50e3c2;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
         }
-        .participant-tag {
-            animation: slideInFromLeft 0.3s ease-out;
+
+        h3 {
+            color: #4a90e2;
         }
-        .winner-section-content {
-            animation: popIn 0.6s ease-out;
+
+        /* --- Éléments Spécifiques --- */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
         }
-        @keyframes slideInFromLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
+
+        li {
+            background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2350e3c2"><path d="M10 17l5-5-5-5v10z"/></svg>') no-repeat left center;
+            padding-left: 25px;
+            margin-bottom: 0.5rem;
         }
-        
-        /* Styles des éléments de l'interface */
-        input[type="text"] {
-            border: 2px solid #e2e8f0;
-            border-radius: 0.75rem;
-            padding: 0.85rem 1.2rem;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            font-size: 1rem;
-            background-color: #f8fafc;
+
+        strong {
+            color: #333;
         }
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #4a90e2; /* Bleu vif au focus */
-            box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.2);
+
+        code {
+            display: block;
+            background-color: #eef1f5;
+            padding: 1rem;
+            border-radius: 5px;
+            border-left: 4px solid #4a90e2;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            white-space: pre-wrap; /* Permet le retour à la ligne */
+            word-wrap: break-word; /* S'assure que les longs mots ne débordent pas */
         }
-        button {
-            padding: 0.85rem 1.8rem;
-            border-radius: 0.75rem;
-            font-weight: 700;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-        }
-        button:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        button:active:not(:disabled) {
-            transform: translateY(0);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .btn-primary { background-image: linear-gradient(to right, #4a90e2, #50c9c3); color: white; }
-        .btn-primary:hover:not(:disabled) { background-image: linear-gradient(to right, #357bd9, #42b8b3); }
-        .btn-secondary { background-color: #64748b; color: white; }
-        .btn-secondary:hover:not(:disabled) { background-color: #475569; }
-        .btn-success { background-image: linear-gradient(to right, #10b981, #34d399); color: white; }
-        .btn-success:hover:not(:disabled) { background-image: linear-gradient(to right, #059669, #14b8a6); }
-        .player-name { font-weight: 600; color: #1a202c; font-size: 1.25rem; }
-        .player-winner-text { color: #14532d; font-weight: 700; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .modal-content { background-color: #ffffff; padding: 30px; border-radius: 1.5rem; box-shadow: 0 15px 40px rgba(0,0,0,0.25); width: 90%; max-width: 450px; text-align: center; animation: modalFadeIn 0.3s ease-out; }
-        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        .close-button { color: #94a3b8; float: right; font-size: 32px; font-weight: bold; line-height: 1; transition: color 0.2s ease; }
-        .close-button:hover, .close-button:focus { color: #334155; text-decoration: none; cursor: pointer; }
-        .stats-table th, .stats-table td { padding: 0.75rem; border-bottom: 1px solid #e2e8f0; text-align: left; }
-        .stats-table th { background-color: #f1f5f9; font-weight: 600; color: #475569; }
-        .stats-table tr:last-child td { border-bottom: none; }
-        .score-control-group { display: flex; align-items: center; gap: 0.5rem; justify-content: center; }
-        .score-button { background-color: #e2e8f0; color: #475569; padding: 0.25rem 0.8rem; border-radius: 0.625rem; font-weight: 700; font-size: 1.25rem; line-height: 1; transition: background-color 0.2s, color 0.2s, transform 0.1s ease; box-shadow: inset 0 -2px 0 rgba(0,0,0,0.1); }
-        .score-button:hover:not(:disabled) { background-color: #cbd5e1; color: #1e293b; transform: scale(1.05); }
-        .score-button:active:not(:disabled) { transform: scale(0.95); }
-        
-        @media (max-width: 640px) {
-            .container { padding: 1.5rem; }
-            button { padding: 0.75rem 1.2rem; font-size: 0.9rem; }
-            input[type="text"] { padding: 0.7rem 1rem; }
-            .match-card { padding: 1.25rem; }
-            .score-display { font-size: 1.5rem; }
-            .score-button { font-size: 1.1rem; padding: 0.2rem 0.6rem; }
+
+        /* --- Pied de page --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background-color: #333;
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-        <h1 class="splash-text">Tournoi</h1>
-        <i class="fas fa-trophy splash-icon"></i>
-    </div>
 
-    <div id="app-container" class="container hidden">
-        <h1 class="text-4xl font-extrabold text-center mb-8 text-gray-800">
-            <i class="fas fa-trophy text-indigo-500 mr-3"></i> Gestionnaire de Tournoi
-        </h1>
+    <header>
+        <h1>Sky Architect</h1>
+        <nav>
+            <a href="#about">À Propos</a>
+            <a href="#gameplay">Gameplay</a>
+            <a href="#economy">Économie</a>
+            <a href="#multiplayer">Multijoueur</a>
+        </nav>
+    </header>
 
-        <!-- Section pour ajouter les participants -->
-        <div id="participant-input-section" class="animated-section mb-8 p-6 bg-blue-50 rounded-xl shadow-inner border border-blue-100">
-            <h2 class="text-2xl font-bold mb-5 text-gray-700">Ajouter les participants</h2>
-            <div class="flex flex-col sm:flex-row gap-4 mb-4">
-                <input type="text" id="participant-name" placeholder="Nom du participant" class="flex-grow">
-                <button id="add-participant-btn" class="btn-primary">
-                    <i class="fas fa-plus-circle"></i> Ajouter
-                </button>
-            </div>
-            <div id="participant-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                <!-- Les participants seront ajoutés ici -->
-            </div>
-            <p id="participant-count" class="text-sm text-gray-600 mt-4 text-right">Participants: 0</p>
-            <button id="start-tournament-btn" class="btn-success w-full mt-6 py-3 text-xl" disabled>
-                <i class="fas fa-play-circle"></i> Démarrer le tournoi
-            </button>
-        </div>
+    <main>
+        <section id="about">
+            <h2>Bienvenue dans l'univers de Sky Architect</h2>
+            <p>Un jeu de construction et de gestion où votre créativité est la seule limite. Imaginez une île flottant dans le ciel, un bloc immense, incassable et infini qui n'attend que vous pour devenir un chef-d'œuvre. Votre mission ? Devenir un véritable architecte céleste en sculptant, en gérant et en faisant prospérer votre propre royaume au-dessus des nuages.</p>
+        </section>
 
-        <!-- Section pour les matchs du tournoi -->
-        <div id="tournament-section" class="hidden mb-8 p-6 bg-green-50 rounded-xl shadow-inner border border-green-100">
-            <h2 class="text-2xl font-bold mb-5 text-gray-700">Matchs du Tournoi</h2>
-            <p id="current-round-info" class="text-xl font-semibold text-gray-700 mb-4 text-center"></p>
-            <div id="matches-container" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <!-- Les matchs seront affichés ici -->
-            </div>
-            <button id="next-round-btn" class="btn-primary w-full mt-6 py-3 text-xl hidden">
-                <i class="fas fa-forward"></i> Passer au tour suivant
-            </button>
-            <button id="reset-tournament-btn" class="btn-secondary w-full mt-4 py-3 text-lg">
-                <i class="fas fa-sync-alt"></i> Réinitialiser le tournoi
-            </button>
-        </div>
+        <section id="gameplay">
+            <h2>Le Cœur du Gameplay : Construction et Création</h2>
+            <p>Au début de votre aventure, vous êtes le fier propriétaire d'un simple bloc volant. C'est à vous de l'étendre et de le modeler.</p>
+            <ul>
+                <li><strong>Expansion de l'Île :</strong> Utilisez des blocs de Terre, le matériau de base du jeu, pour agrandir votre territoire. Mais attention, la surface n'est pas illimitée ! Pour augmenter la taille maximale de votre zone de construction, vous devrez dépenser de l'Argent Céleste, la monnaie unique de ce monde.</li>
+                <li><strong>Créativité sans Limite :</strong> Le jeu vous offre une vaste collection de blocs, des plus communs aux plus rares, pour construire tout ce que votre imagination peut concevoir : des châteaux éthérés, des jardins suspendus, ou des villes futuristes.</li>
+            </ul>
+        </section>
 
-        <!-- Section pour le vainqueur final -->
-        <div id="winner-section" class="hidden text-center p-8 bg-yellow-50 rounded-xl shadow-inner border border-yellow-100">
-            <div class="winner-section-content">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">
-                    <i class="fas fa-trophy text-yellow-500 mr-2"></i> Félicitations !
-                </h2>
-                <p class="text-5xl font-extrabold text-green-600 mb-4" id="final-winner-name"></p>
-                <p class="text-2xl text-gray-700 mt-4">est le grand vainqueur du tournoi !</p>
-                <button id="new-tournament-btn" class="btn-primary w-full mt-8 py-3 text-xl">
-                    <i class="fas fa-redo-alt"></i> Nouveau Tournoi
-                </button>
-            </div>
-        </div>
+        <section id="economy">
+            <h2>L'Économie Céleste : L'Argent Céleste</h2>
+            <p>L'économie de Sky Architecte est conçue pour récompenser votre sens du design. Plus vos créations sont belles et complexes, plus vous prospérez. L'Argent Céleste est la clé de voûte de cette économie.</p>
+            <h3>Comment gagne-t-on de l'Argent Céleste ?</h3>
+            <p>Chaque fois que vous posez un bloc, vous gagnez de l'Argent Céleste selon une formule qui valorise la réflexion et l'esthétique :</p>
+            <code>Argent Céleste Gagné = Gain_Base_Bloc × Multiplicateur_Densité × Multiplicateur_Diversité × Multiplicateur_Esthétique_Global</code>
+            <ul>
+                 <li><strong>Gain de Base du Bloc :</strong> Chaque type de bloc a une valeur intrinsèque, légèrement supérieure à son coût d'achat. Par exemple, la Terre rapporte 1.2 Céleste, le Bois Raffiné 12 et la Gemme Lumineuse 240.</li>
+                 <li><strong>Multiplicateur de Densité :</strong> Ce bonus récompense les blocs bien intégrés, basé sur le nombre de faces touchant d'autres blocs.</li>
+                 <li><strong>Multiplicateur de Diversité :</strong> Ce bonus encourage la variété dans vos constructions en se basant sur le nombre de types de blocs uniques adjacents.</li>
+                 <li><strong>Multiplicateur Esthétique Global :</strong> C'est le plus grand bonus du jeu ! Cette valeur est attribuée par les administrateurs et reflète la beauté et la complexité exceptionnelles de votre île.</li>
+            </ul>
+            <p>L'Argent Céleste vous sert ensuite à tout : acheter de nouveaux blocs et Pets, créer des Blueprints, ou agrandir votre île.</p>
+        </section>
 
-        <!-- Section pour les statistiques des joueurs -->
-        <div id="player-stats-section" class="hidden mt-8 p-6 bg-indigo-50 rounded-xl shadow-inner border border-indigo-100">
-            <h2 class="text-2xl font-bold mb-5 text-gray-700">Statistiques des Joueurs</h2>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white rounded-lg overflow-hidden stats-table">
-                    <thead>
-                        <tr>
-                            <th class="py-3 px-4">Joueur</th>
-                            <th class="py-3 px-4">Matchs Gagnés</th>
-                        </tr>
-                    </thead>
-                    <tbody id="stats-table-body">
-                        <!-- Les statistiques seront insérées ici -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+        <section id="features">
+            <h2>Des Marchands, des Compagnons et des Blueprints</h2>
+            <h3>Marchands et Compagnons</h3>
+            <p>Votre monde ne serait pas complet sans un peu d'animation !</p>
+            <ul>
+                <li><strong>Marchands Dynamiques :</strong> Divers marchands apparaissent régulièrement, proposant des blocs et des Pets. Leurs stocks de blocs rares se réinitialisent toutes les cinq minutes.</li>
+                <li><strong>Vos Pets :</strong> Adoptez d'adorables compagnons ! Prenez-en soin pour les voir grandir et peut-être même développer des compétences uniques, comme les "Pets Piocheurs" qui vous rapportent des ressources passivement.</li>
+            </ul>
 
-    <!-- Custom Modal for Alerts -->
-    <div id="custom-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <p id="modal-message" class="text-lg font-semibold text-gray-800 mb-4"></p>
-            <button id="modal-ok-button" class="btn-primary px-6 py-2">OK</button>
-        </div>
-    </div>
-
-    <script>
-        window.onload = function() {
-            // Durée totale de l'animation de lancement
-            const splashDuration = 2500; // 2.5 secondes
-            
-            // Références aux éléments du DOM pour le splash screen
-            const splashScreen = document.getElementById('splash-screen');
-            const appContainer = document.getElementById('app-container');
-
-            // Cache le splash screen et affiche le contenu principal après la durée définie
-            setTimeout(() => {
-                splashScreen.style.opacity = '0';
-                setTimeout(() => {
-                    splashScreen.style.display = 'none';
-                    appContainer.classList.remove('hidden');
-                    appContainer.classList.add('show');
-                }, 1000); // Fait disparaître complètement le splash screen après la transition de 1s
-            }, splashDuration);
-        };
-
-        // Variables globales pour le tournoi
-        let participants = []; // Chaque participant sera un objet { name: 'Nom', wins: 0 }
-        let currentRound = 0;
-        let matches = [];
-        let allRoundsMatches = []; // Pour garder une trace de tous les matchs joués à travers les tours
+            <h3>Les Blueprints : Construire en toute simplicité</h3>
+            <p>Les Blueprints sont des plans qui révolutionnent votre façon de construire.</p>
+             <ul>
+                <li><strong>Accélérez votre Construction :</strong> Ces plans vous permettent de poser l'équivalent de plusieurs blocs à la fois, rendant la construction de structures complexes beaucoup plus rapide.</li>
+                <li><strong>Création et Achat :</strong> Vous pouvez soit créer un plan à partir d'une structure existante, soit en acheter auprès des marchands.</li>
+            </ul>
+        </section>
         
-        // Références aux éléments du DOM
-        const participantNameInput = document.getElementById('participant-name');
-        const addParticipantBtn = document.getElementById('add-participant-btn');
-        const participantListDiv = document.getElementById('participant-list');
-        const participantCountSpan = document.getElementById('participant-count');
-        const startTournamentBtn = document.getElementById('start-tournament-btn');
-        const participantInputSection = document.getElementById('participant-input-section');
-        const tournamentSection = document.getElementById('tournament-section');
-        const currentRoundInfo = document.getElementById('current-round-info');
-        const matchesContainer = document.getElementById('matches-container');
-        const nextRoundBtn = document.getElementById('next-round-btn');
-        const resetTournamentBtn = document.getElementById('reset-tournament-btn');
-        const winnerSection = document.getElementById('winner-section');
-        const finalWinnerName = document.getElementById('final-winner-name');
-        const newTournamentBtn = document.getElementById('new-tournament-btn');
-        const playerStatsSection = document.getElementById('player-stats-section');
-        const statsTableBody = document.getElementById('stats-table-body');
+        <section id="multiplayer">
+            <h2>L'Expérience Multijoueur</h2>
+            <p>Sky Architect peut se jouer seul ou entre amis.</p>
+            <ul>
+                <li><strong>Créer un Monde :</strong> Lancez une partie, et un code unique vous sera donné. Vous pourrez le partager avec vos amis.</li>
+                <li><strong>Rejoindre un Monde :</strong> Utilisez le code d'un ami pour rejoindre son île et construire ensemble dans le même ciel.</li>
+            </ul>
+        </section>
+    </main>
 
-        // Modal elements
-        const customModal = document.getElementById('custom-modal');
-        const modalMessage = document.getElementById('modal-message');
-        const modalOkButton = document.getElementById('modal-ok-button');
-        const closeModalButton = document.querySelector('.close-button');
+    <footer>
+        <p>&copy; 2025 Sky Architect - Tous droits réservés.</p>
+    </footer>
 
-        // Fonction pour afficher le modal personnalisé
-        function showModal(message, isConfirmation = false, onConfirm = null) {
-            modalMessage.textContent = message;
-            customModal.style.display = 'flex';
-
-            modalOkButton.textContent = isConfirmation ? 'Confirmer' : 'OK';
-            modalOkButton.onclick = function() {
-                customModal.style.display = 'none';
-                if (isConfirmation && onConfirm) {
-                    onConfirm();
-                }
-            };
-            closeModalButton.onclick = function() {
-                customModal.style.display = 'none';
-            };
-            window.onclick = function(event) {
-                if (event.target == customModal) {
-                    customModal.style.display = 'none';
-                }
-            };
-        }
-
-        // Fonction pour mettre à jour l'affichage des participants
-        function updateParticipantList() {
-            participantListDiv.innerHTML = '';
-            participants.forEach((p, index) => {
-                const participantTag = document.createElement('span');
-                participantTag.className = 'bg-blue-200 text-blue-800 px-4 py-2 rounded-full text-base font-medium flex items-center justify-between shadow-sm participant-tag';
-                participantTag.innerHTML = `
-                    <span>${p.name}</span>
-                    <button class="ml-3 text-blue-600 hover:text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-full p-1" data-index="${index}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-                participantTag.querySelector('button').onclick = (event) => removeParticipant(event.currentTarget.dataset.index);
-                participantListDiv.appendChild(participantTag);
-            });
-            participantCountSpan.textContent = `Participants: ${participants.length}`;
-            startTournamentBtn.disabled = participants.length < 2; // Activer si au moins 2 participants
-        }
-
-        // Fonction pour ajouter un participant
-        addParticipantBtn.addEventListener('click', () => {
-            const name = participantNameInput.value.trim();
-            if (name) {
-                // Vérifier si le participant existe déjà
-                const existingParticipant = participants.find(p => p.name.toLowerCase() === name.toLowerCase());
-                if (existingParticipant) {
-                    showModal("Ce participant est déjà ajouté !");
-                } else {
-                    participants.push({ name: name, wins: 0 });
-                    participantNameInput.value = '';
-                    updateParticipantList();
-                }
-            } else {
-                showModal("Veuillez entrer un nom de participant.");
-            }
-        });
-
-        // Permettre d'ajouter avec la touche Entrée
-        participantNameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                addParticipantBtn.click();
-            }
-        });
-
-        // Fonction pour supprimer un participant
-        function removeParticipant(index) {
-            participants.splice(index, 1);
-            updateParticipantList();
-        }
-
-        // Fonction pour mélanger un tableau (algorithme de Fisher-Yates)
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        // Fonction pour générer les matchs du premier tour
-        function generateFirstRoundMatches() {
-            shuffleArray(participants); // Mélanger les participants
-            let playersForRound = [...participants];
-            matches = [];
-            let matchIdCounter = 0;
-
-            if (playersForRound.length % 2 !== 0) {
-                const byePlayer = playersForRound.pop();
-                matches.push({
-                    id: `R0M${matchIdCounter++}`,
-                    player1: byePlayer,
-                    player2: { name: 'BYE', wins: 0 },
-                    winner: byePlayer.name,
-                    isCompleted: true,
-                    score1: 0,
-                    score2: 0
-                });
-            }
-
-            for (let i = 0; i < playersForRound.length; i += 2) {
-                matches.push({
-                    id: `R0M${matchIdCounter++}`,
-                    player1: playersForRound[i],
-                    player2: playersForRound[i + 1],
-                    winner: null,
-                    isCompleted: false,
-                    score1: 0,
-                    score2: 0
-                });
-            }
-            allRoundsMatches.push([...matches]);
-        }
-
-        // Fonction pour générer les matchs des tours suivants
-        function generateNextRoundMatches(winners) {
-            shuffleArray(winners);
-            matches = [];
-            let matchIdCounter = 0;
-
-            if (winners.length % 2 !== 0) {
-                const byePlayer = winners.pop();
-                matches.push({
-                    id: `R${currentRound}M${matchIdCounter++}`,
-                    player1: byePlayer,
-                    player2: { name: 'BYE', wins: 0 },
-                    winner: byePlayer.name,
-                    isCompleted: true,
-                    score1: 0,
-                    score2: 0
-                });
-            }
-
-            for (let i = 0; i < winners.length; i += 2) {
-                matches.push({
-                    id: `R${currentRound}M${matchIdCounter++}`,
-                    player1: winners[i],
-                    player2: winners[i + 1],
-                    winner: null,
-                    isCompleted: false,
-                    score1: 0,
-                    score2: 0
-                });
-            }
-            allRoundsMatches.push([...matches]);
-        }
-
-        // Fonction pour afficher les matchs
-        function displayMatches() {
-            matchesContainer.innerHTML = '';
-            currentRoundInfo.textContent = `Tour ${currentRound + 1}`;
-
-            if (matches.length === 1 && matches[0].isCompleted) {
-                endTournament(matches[0].winner);
-                return;
-            }
-
-            matches.forEach(match => {
-                const matchCard = document.createElement('div');
-                matchCard.id = `match-${match.id}`;
-                matchCard.className = `match-card flex flex-col ${match.isCompleted ? 'completed' : ''}`;
-
-                if (match.player2.name === 'BYE') {
-                    matchCard.innerHTML = `
-                        <p class="text-gray-600 mb-2 font-medium"><i class="fas fa-arrow-right text-purple-500 mr-2"></i> Match BYE</p>
-                        <p class="text-2xl font-bold text-gray-800 mb-2">${match.player1.name} passe au tour suivant !</p>
-                        <p class="text-sm text-gray-500">Gagnant : <span class="player-winner-text">${match.winner}</span></p>
-                    `;
-                } else {
-                    matchCard.innerHTML = `
-                        <p class="text-gray-600 mb-2 font-medium">Match</p>
-                        <div class="flex flex-col sm:flex-row items-stretch justify-center gap-3 mb-4 h-full">
-                            <div class="flex-1 text-center p-2 flex flex-col items-center justify-center">
-                                <span class="player-name text-xl font-semibold">${match.player1.name}</span>
-                                <div class="score-control-group mt-2">
-                                    <button class="score-button" data-match-id="${match.id}" data-player-id="player1" data-delta="-1" ${match.isCompleted ? 'disabled' : ''}>-</button>
-                                    <span class="score-display" data-player-id="player1">${match.score1 || 0}</span>
-                                    <button class="score-button" data-match-id="${match.id}" data-player-id="player1" data-delta="1" ${match.isCompleted ? 'disabled' : ''}>+</button>
-                                </div>
-                            </div>
-                            <span class="text-xl font-bold text-gray-700 flex items-center justify-center p-2">VS</span>
-                            <div class="flex-1 text-center p-2 flex flex-col items-center justify-center">
-                                <span class="player-name text-xl font-semibold">${match.player2.name}</span>
-                                <div class="score-control-group mt-2">
-                                    <button class="score-button" data-match-id="${match.id}" data-player-id="player2" data-delta="-1" ${match.isCompleted ? 'disabled' : ''}>-</button>
-                                    <span class="score-display" data-player-id="player2">${match.score2 || 0}</span>
-                                    <button class="score-button" data-match-id="${match.id}" data-player-id="player2" data-delta="1" ${match.isCompleted ? 'disabled' : ''}>+</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-3 p-3 bg-gray-100 rounded-lg ${match.isCompleted ? 'hidden' : ''}">
-                            <button class="btn-primary w-full py-2 text-sm validate-score-btn" data-match-id="${match.id}" ${match.isCompleted ? 'disabled' : ''}>Valider le score</button>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-2">Gagnant : <span class="player-winner-text">${match.winner || 'En attente'}</span></p>
-                        ${match.isCompleted && (match.score1 !== undefined || match.score2 !== undefined) ? `
-                            <p class="text-sm text-gray-500">Score final : <span class="font-semibold">${match.score1}-${match.score2}</span></p>
-                        ` : ''}
-                    `;
-                }
-                matchesContainer.appendChild(matchCard);
-            });
-
-            document.querySelectorAll('.score-button').forEach(button => {
-                if (!button.disabled) {
-                    button.addEventListener('click', (e) => {
-                        const matchId = e.currentTarget.dataset.matchId;
-                        const playerId = e.currentTarget.dataset.playerId;
-                        const delta = parseInt(e.currentTarget.dataset.delta);
-                        updateScore(matchId, playerId, delta);
-                    });
-                }
-            });
-
-            document.querySelectorAll('.validate-score-btn').forEach(button => {
-                if (!button.disabled) {
-                    button.addEventListener('click', submitScore);
-                }
-            });
-
-            checkRoundCompletion();
-        }
-
-        // Fonctions de mise à jour des scores
-        function updateScore(matchId, playerId, delta) {
-            const match = matches.find(m => m.id === matchId);
-            if (!match || match.isCompleted) return;
-
-            if (playerId === 'player1') {
-                match.score1 = (match.score1 || 0) + delta;
-                if (match.score1 < 0) match.score1 = 0;
-            } else if (playerId === 'player2') {
-                match.score2 = (match.score2 || 0) + delta;
-                if (match.score2 < 0) match.score2 = 0;
-            }
-            const scoreSpan = document.querySelector(`#match-${matchId} .score-display[data-player-id="${playerId}"]`);
-            if (scoreSpan) {
-                scoreSpan.textContent = (playerId === 'player1' ? match.score1 : match.score2);
-            }
-        }
-
-        // Fonction pour soumettre les scores et déterminer le gagnant
-        function submitScore(event) {
-            const button = event.currentTarget;
-            const matchId = button.dataset.matchId;
-            const match = matches.find(m => m.id === matchId);
-
-            if (!match || match.isCompleted) return;
-
-            const score1 = match.score1 || 0;
-            const score2 = match.score2 || 0;
-
-            if (score1 === score2) {
-                showModal("Les scores sont égaux. Veuillez ajuster les scores pour qu'un joueur gagne.");
-                return;
-            }
-
-            let winnerName = null;
-            if (score1 > score2) {
-                winnerName = match.player1.name;
-            } else {
-                winnerName = match.player2.name;
-            }
-
-            const winnerPlayerObject = participants.find(p => p.name === winnerName);
-            if (winnerPlayerObject) {
-                winnerPlayerObject.wins++;
-            }
-            match.winner = winnerName;
-            match.isCompleted = true;
-            displayMatches();
-        }
-
-        // Fonction pour vérifier si tous les matchs du tour sont terminés
-        function checkRoundCompletion() {
-            const allMatchesCompleted = matches.every(match => match.isCompleted);
-            if (allMatchesCompleted) {
-                if (matches.length === 1) {
-                    endTournament(matches[0].winner);
-                } else {
-                    nextRoundBtn.classList.remove('hidden');
-                    showModal("Tous les matchs de ce tour sont terminés ! Préparez-vous pour le tour suivant.");
-                }
-            } else {
-                nextRoundBtn.classList.add('hidden');
-            }
-        }
-
-        // Fonction pour passer au tour suivant
-        nextRoundBtn.addEventListener('click', () => {
-            currentRound++;
-            const winners = matches.filter(match => match.winner && match.player2.name !== 'BYE').map(match => {
-                return participants.find(p => p.name === match.winner);
-            });
-            matches.filter(match => match.player2.name === 'BYE').forEach(match => {
-                if (!winners.includes(match.player1)) {
-                    winners.push(match.player1);
-                }
-            });
-
-            if (winners.length <= 1) {
-                endTournament(winners[0] ? winners[0].name : null);
-            } else {
-                generateNextRoundMatches(winners);
-                tournamentSection.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-                setTimeout(() => {
-                    displayMatches();
-                    tournamentSection.classList.remove('opacity-0');
-                    nextRoundBtn.classList.add('hidden');
-                }, 500);
-            }
-        });
-
-        // Fonction pour démarrer le tournoi
-        startTournamentBtn.addEventListener('click', () => {
-            if (participants.length < 2) {
-                showModal("Veuillez ajouter au moins 2 participants pour démarrer le tournoi.");
-                return;
-            }
-            participantInputSection.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-            setTimeout(() => {
-                participantInputSection.classList.add('hidden');
-                tournamentSection.classList.remove('hidden');
-                tournamentSection.classList.add('animated-section');
-                generateFirstRoundMatches();
-                displayMatches();
-            }, 500);
-        });
-
-        // Fonction pour afficher les statistiques des joueurs
-        function displayPlayerStats() {
-            statsTableBody.innerHTML = '';
-            const sortedParticipants = [...participants].sort((a, b) => b.wins - a.wins);
-
-            sortedParticipants.forEach(p => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="py-2 px-4 text-gray-700">${p.name}</td>
-                    <td class="py-2 px-4 text-gray-700">${p.wins}</td>
-                `;
-                statsTableBody.appendChild(row);
-            });
-            playerStatsSection.classList.remove('hidden');
-            playerStatsSection.classList.add('animated-section');
-        }
-
-        // Fonction pour terminer le tournoi et afficher le vainqueur
-        function endTournament(winnerName) {
-            tournamentSection.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-            setTimeout(() => {
-                tournamentSection.classList.add('hidden');
-                winnerSection.classList.remove('hidden');
-                finalWinnerName.textContent = winnerName || 'Aucun vainqueur (erreur)';
-                displayPlayerStats();
-            }, 500);
-        }
-
-        // Fonction pour réinitialiser le tournoi
-        resetTournamentBtn.addEventListener('click', () => {
-            showModal("Êtes-vous sûr de vouloir réinitialiser le tournoi ? Toutes les données actuelles seront perdues.", true, resetTournament);
-        });
-
-        function resetTournament() {
-            participants = [];
-            currentRound = 0;
-            matches = [];
-            allRoundsMatches = [];
-            updateParticipantList();
-
-            const sectionsToHide = [tournamentSection, winnerSection, playerStatsSection];
-            sectionsToHide.forEach(section => {
-                section.classList.add('opacity-0', 'transition-opacity', 'duration-500');
-            });
-
-            setTimeout(() => {
-                sectionsToHide.forEach(section => section.classList.add('hidden'));
-                participantInputSection.classList.remove('hidden', 'opacity-0');
-                participantInputSection.classList.add('animated-section');
-                matchesContainer.innerHTML = '';
-                nextRoundBtn.classList.add('hidden');
-                participantNameInput.value = '';
-                startTournamentBtn.disabled = true;
-                participantCountSpan.textContent = `Participants: 0`;
-            }, 500);
-        }
-
-        // Bouton pour un nouveau tournoi depuis la section du vainqueur
-        newTournamentBtn.addEventListener('click', resetTournament);
-
-        // Initialisation de la liste des participants au chargement
-        updateParticipantList();
-
-    </script>
 </body>
 </html>
-
